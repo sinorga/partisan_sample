@@ -28,10 +28,15 @@ use Mix.Config
 # here (which is why it is important to import them last).
 #
 #     import_config "#{Mix.env()}.exs"
-config :distributed_partisan, role: System.get_env("ROLE") || "server"
+
+config :lager,
+  handlers: [
+    lager_console_backend: :debug
+  ]
 
 config :logger, level: :debug
 
 config :partisan,
   peer_port: (System.get_env("PEER_PORT") || "60000") |> String.to_integer(),
-  partisan_peer_service_manager: :partisan_client_server_peer_service_manager
+  # partisan_peer_service_manager: :partisan_client_server_peer_service_manager,
+  tag: (System.get_env("TAG") || "server") |> String.to_atom()

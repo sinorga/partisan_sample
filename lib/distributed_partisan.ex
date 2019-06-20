@@ -7,7 +7,7 @@ defmodule DistributedPartisan do
     :partisan_config.set(:tls, true)
 
     ssl_opts =
-      case Application.get_env(:distributed_partisan, :role, "server") do
+      case :partisan_config.get(:tag, :server) do
         "server" ->
           [
             cacertfile: "priv/ca.cer",
