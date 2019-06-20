@@ -1,0 +1,25 @@
+version: "3.7"
+services:
+  store-app:
+    image: "elixir:1.8.2-otp-22"
+    ports:
+      - "60000:60000"
+    volumes:
+      - ./:/opt
+  agent-one:
+    image: "elixir:1.8.2-otp-22"
+    ports:
+      - "60001:60001"
+    environment:
+      - PEER_PORT=60001
+      - ROLE=client
+    volumes:
+      - ./:/opt
+  agent-two:
+    image: "elixir:1.8.2-otp-22"
+    ports:
+      - "60002:60000"
+    environment:
+      - ROLE=client
+    volumes:
+      - ./:/opt
